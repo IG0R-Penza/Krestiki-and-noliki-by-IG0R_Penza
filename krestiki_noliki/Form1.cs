@@ -14,6 +14,53 @@ namespace krestiki_noliki
 {
     public partial class Form1 : Form
     {
+        private bool win()
+        {
+            //proverka po strokam
+            String troyka = "";
+            for (int i = 0; i < 3; i++)
+            {
+                troyka = "";
+                for (int j = 0; j < 3; j++)
+                {
+                    troyka += DataBank.Field[i, j];
+                }
+                if (troyka == "XXX") { message.Text = "Выиграл X!"; return true; }
+                else if (troyka == "OOO") { message.Text = "Выиграл O!"; return true; }
+            }
+            //proverka po stolbtsam
+            for (int j = 0; j < 3; j++)
+            {
+                troyka = "";
+                for (int i = 0; i < 3; i++)
+                {
+                    troyka += DataBank.Field[i, j];
+                }
+                if (troyka == "XXX") { message.Text = "Выиграл X!"; return true; }
+                else if (troyka == "OOO") { message.Text = "Выиграл O!"; return true; }
+            }
+            //proverka po diag
+            troyka = DataBank.Field[0, 0] + DataBank.Field[1, 1] + DataBank.Field[2, 2];
+            if (troyka == "XXX") { message.Text = "Выиграл X!"; return true; }
+            else if (troyka == "OOO") { message.Text = "Выиграл O!"; return true; }
+            troyka = DataBank.Field[0, 2] + DataBank.Field[1, 1] + DataBank.Field[2, 0];
+            if (troyka == "XXX") { message.Text = "Выиграл X!"; return true; }
+            else if (troyka == "OOO") { message.Text = "Выиграл O!"; return true; }
+            //igray dalshe
+            return false;
+        }
+        private void allButtonsEnable(bool BOOL)
+        {
+            button00.Enabled = BOOL;
+            button01.Enabled = BOOL;
+            button02.Enabled = BOOL;
+            button10.Enabled = BOOL;
+            button11.Enabled = BOOL;
+            button12.Enabled = BOOL;
+            button20.Enabled = BOOL;
+            button21.Enabled = BOOL;
+            button22.Enabled = BOOL;
+        }
         private string move(int x, int y)
         {
             if (DataBank.Field[x, y] == "")
@@ -21,6 +68,7 @@ namespace krestiki_noliki
                 DataBank.Field[x, y] = DataBank.Figure[DataBank.Move % 2];
                 DataBank.Move += 1;
                 message.Text = "Ходит " + DataBank.Figure[DataBank.Move % 2];
+                if (win()) { allButtonsEnable(false); }
                 return DataBank.Field[x, y];
             }
             else { return DataBank.Field[x, y]; }
