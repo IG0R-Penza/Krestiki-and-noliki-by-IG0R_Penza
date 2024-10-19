@@ -69,6 +69,11 @@ namespace krestiki_noliki
                 DataBank.Move += 1;
                 message.Text = "Ходит " + DataBank.Figure[DataBank.Move % 2];
                 if (win()) { allButtonsEnable(false); }
+                else if (DataBank.Move == 9)
+                {
+                    allButtonsEnable(false);
+                    message.Text = "Ничья";
+                }
                 return DataBank.Field[x, y];
             }
             else { return DataBank.Field[x, y]; }
