@@ -253,7 +253,7 @@
             this.restart_btn.Text = "RESTART";
             this.restart_btn.UseVisualStyleBackColor = false;
             this.restart_btn.Visible = false;
-            //this.restart_btn.Click += new System.EventHandler(this.restart_btn_Click);
+            this.restart_btn.Click += new System.EventHandler(this.restart_btn_Click);
             // 
             // Form1
             // 

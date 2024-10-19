@@ -67,12 +67,19 @@ namespace krestiki_noliki
             {
                 DataBank.Field[x, y] = DataBank.Figure[DataBank.Move % 2];
                 DataBank.Move += 1;
-                message.Text = "Ходит " + DataBank.Figure[DataBank.Move % 2];
-                if (win()) { allButtonsEnable(false); }
+                message.Text = "Ходит: " + DataBank.Figure[DataBank.Move % 2];
+                if (win())
+                {
+                    allButtonsEnable(false);
+                    restart_btn.Visible = true;
+                    restart_btn.Enabled = true;
+                }
                 else if (DataBank.Move == 9)
                 {
                     allButtonsEnable(false);
                     message.Text = "Ничья";
+                    restart_btn.Visible = true;
+                    restart_btn.Enabled = true;
                 }
                 return DataBank.Field[x, y];
             }
@@ -91,5 +98,30 @@ namespace krestiki_noliki
         private void button20_Click(object sender, EventArgs e) { button20.Text = move(2, 0); }
         private void button21_Click(object sender, EventArgs e) { button21.Text = move(2, 1); }
         private void button22_Click(object sender, EventArgs e) { button22.Text = move(2, 2); }
+
+        private void restart_btn_Click(object sender, EventArgs e)
+        {
+            allButtonsEnable(true);
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    DataBank.Field[i, j] = "";
+                }
+            }
+            DataBank.Move = 0;
+            button00.Text = "";
+            button01.Text = "";
+            button02.Text = "";
+            button10.Text = "";
+            button11.Text = "";
+            button12.Text = "";
+            button20.Text = "";
+            button21.Text = "";
+            button22.Text = "";
+            message.Text = "Ходит: О";
+            restart_btn.Visible = false;
+            restart_btn.Enabled = false;
+        }
     }
 }
